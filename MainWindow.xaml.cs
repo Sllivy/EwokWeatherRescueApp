@@ -1,18 +1,47 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using EwokWeatherRescueApp.Models;
 
-namespace EwokWeatherRescueApp.Models
+namespace EwokWeatherRescueApp
 {
-    public class WeatherModel
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        public string Location { get; set; }
-        public string Condition { get; set; }
-        public string HighTemperature { get; set; }
-        public string LowTemperature { get; set; }
-        public string CurrentTemperature { get; set; }
-    }
+        private WeatherViewModel _viewModel;
 
-}
+        public MainWindow()
+        {
+            InitializeComponent();
+            _viewModel = new WeatherViewModel();
+            DataContext = _viewModel;
+        }
+
+        private async void GetWeatherButton_Click(object sender, RoutedEventArgs e)
+        {
+            var location = LocationInput.Text;
+            if (!string.IsNullOrEmpty(location))
+            {
+                await _viewModel.GetWeatherDataAsync(location);
+            }
+        }
+
+        private class WeatherViewModel
+        {
+            internal async Task GetWeatherDataAsync(string location)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+    }
+} 
